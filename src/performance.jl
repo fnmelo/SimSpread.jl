@@ -314,7 +314,7 @@ function recallatL(y, yhat, L::Integer=20)
     # Sort predictions by score
     order = sortperm(yhat, rev=true)
     y = y[order]
-    yhat = y[order]
+    yhat = yhat[order]
 
     # Calculate recall@n for given group
     Xi = sum(y)
@@ -349,8 +349,12 @@ function recallatL(y, yhat, grouping, L::Integer=20)
         # Get prediction-label pairs for group
         y_g = y[grouping.==group]
         yhat_g = yhat[grouping.==group]
+        r20 = recallatL(y_g, yhat_g, L)
+        
+        if r20 !== NaN
+            push!(performance, r20)
+        end
 
-        push!(performance, recallatL(y_g, yhat_g, L))
     end
 
     return mean(skipmissing(performance))
