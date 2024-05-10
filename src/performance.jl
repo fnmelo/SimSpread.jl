@@ -356,14 +356,6 @@ function recallatL(y, yhat, grouping, L::Integer=20)
             push!(performance, r20)
         end
 
-<<<<<<< HEAD
-        if r20 !== NaN
-            push!(performance, r20)
-        end
-=======
->>>>>>> develop
-    end
-
     return mean(skipmissing(performance))
 end
 
