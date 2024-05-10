@@ -1,3 +1,4 @@
+
 """
     BEDROC(y::AbstractVector{Bool}, yhat::AbstractVector; rev::Bool=true, α::AbstractFloat=20.0)
 
@@ -314,7 +315,7 @@ function recallatL(y, yhat, L::Integer=20)
     # Sort predictions by score
     order = sortperm(yhat, rev=true)
     y = y[order]
-    yhat = y[order]
+    yhat = yhat[order]
 
     # Calculate recall@n for given group
     Xi = sum(y)
@@ -350,7 +351,9 @@ function recallatL(y, yhat, grouping, L::Integer=20)
         y_g = y[grouping.==group]
         yhat_g = yhat[grouping.==group]
 
-        push!(performance, recallatL(y_g, yhat_g, L))
+        if r20 !== NaN
+            push!(performance, r20)
+        end
     end
 
     return mean(skipmissing(performance))
