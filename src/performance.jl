@@ -350,10 +350,18 @@ function recallatL(y, yhat, grouping, L::Integer=20)
         # Get prediction-label pairs for group
         y_g = y[grouping.==group]
         yhat_g = yhat[grouping.==group]
-
+        r20 = recallatL(y_g, yhat_g, L)
+        
         if r20 !== NaN
             push!(performance, r20)
         end
+
+<<<<<<< HEAD
+        if r20 !== NaN
+            push!(performance, r20)
+        end
+=======
+>>>>>>> develop
     end
 
     return mean(skipmissing(performance))
